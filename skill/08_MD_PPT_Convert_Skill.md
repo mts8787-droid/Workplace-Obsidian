@@ -30,13 +30,13 @@ tags:
 ## 4. 🤖 자율형 PPT 파싱 4-Agent 파이프라인 (Multi-Agent Architecture)
 단순 Raw 마크다운 추출을 넘어, 완벽한 시각화 마크다운을 자동으로 생성하기 위해 **'4-Agent 워크플로우(Parser ➡️ Editor ➡️ Reviewer ➡️ Writer)'** 아키텍처를 스킬에 등록했습니다. 
 
-### 4.1 4-Agent 워크플로우 구조 (Antigravity 1인 4역 수행)
-사용자는 별도의 API 키가 없으므로, 파이썬 스크립트(Parser)와 Antigravity(Editor & Reviewer & Writer)가 유기적으로 역할을 분담합니다.
+### 4.1 4-Agent 워크플로우 구조 (Antigravity 1인 4역 직접 수행)
+사용자는 별도의 API 키가 없으므로, 1단계 추출만 파이썬 스크립트가 담당하고 나머지 2~4단계는 **반드시 메인 세션(Antigravity LLM)이 지능적 추론을 통해 직접 수행**해야 합니다. (파이썬 정규식 스크립트로 덮어쓰는 꼼수 사용 절대 금지)
 
-1. **Parser Agent (파서 에이전트 - 파이썬 스크립트)**: 백그라운드 터미널(`run_command`)로 파이썬 스크립트를 실행해 PPTX의 텍스트와 좌표를 Raw 마크다운으로 1차 추출 및 분할(Chunking)합니다.
-2. **Editor Agent (편집 에이전트 - Antigravity 직접 수행)**: 파서가 만들어낸 Raw 마크다운 파일(`view_file`)을 읽어들여, `[도식 공간 분석]` 등의 파편화된 데이터를 문맥에 맞는 Mermaid 차트나 마크다운 표(Table)로 완벽히 재구성(Refining) 및 조립하여 파일에 덮어씁니다.
-3. **Reviewer Agent (검수 에이전트 - Antigravity 직접 수행)**: 조립된 최종 MD 파일을 뷰어 에이전트가 다시 한번 하나하나 검수하여, 렌더링 에러(Mermaid 따옴표 누락 등)나 누락된 표 제목이 있는지 최종 QC(Quality Control)를 진행합니다.
-4. **Writer Agent (구조화 및 라이터 에이전트 - Antigravity 직접 수행)**: 파편화되어 나열된 단어들을 문장형으로 다듬고, 1페이지 슬라이드 제목부터 전체 구조를 완성합니다. 또한 `![Slide Image]` 같은 이미지 플레이스홀더나 페이지 번호를 삭제하여 읽기 편한 최종 문서를 완성합니다.
+1. **Parser Agent (파서 에이전트 - 파이썬 스크립트)**: 백그라운드 터미널(`run_command`)로 파이썬 스크립트를 실행해 PPTX의 텍스트와 좌표를 Raw 마크다운으로 1차 추출 및 저장합니다.
+2. **Editor Agent (편집 에이전트 - LLM 직접 추론)**: 파서가 만들어낸 파일이 방대하므로, 에이전트는 `view_file` 도구를 사용해 **500줄 단위로 끊어 읽으며(Chunking)** 내용의 문맥을 직접 파악합니다. 단순 정규식으로 처리 불가능한 복잡한 구조(예: AS-IS vs TO-BE 매트릭스)를 LLM 지능으로 추론하여 마크다운 표(Table)나 Mermaid 차트로 직접 재구성(Refining) 및 덮어쓰기(`multi_replace_file_content`) 합니다.
+3. **Reviewer Agent (검수 에이전트 - LLM 직접 수행)**: 조립된 MD 파일 구간을 다시 검수하여, 렌더링 에러(Mermaid 따옴표 누락 등)나 누락된 표 제목이 있는지 최종 QC(Quality Control)를 진행합니다.
+4. **Writer Agent (구조화 및 라이터 에이전트 - LLM 직접 수행)**: 에디터 작업과 병행하여, `![Slide Image]` 같은 시각 더미 데이터를 삭제하고, 표로 만들지 못한 파편화된 단어들을 앞뒤 문맥(Context)을 바탕으로 자연스러운 문장(Sentence)으로 구조화합니다.
 
 ### 4.2 실행 방법 (채팅 기반 자동 실행)
 - 사용자가 채팅창에 **`/MD-PPT [파일명]`** 형태로 타겟을 명시하여 입력하면, 에이전트(LLM)가 알아서 지정된 파일의 절대 경로를 탐색하여 백그라운드 터미널(run_command)로 파이썬 스크립트를 자동 실행합니다.
