@@ -45,6 +45,6 @@ tags:
 - 만약 파일명이 생략되었다면, 에이전트는 사용자에게 타겟을 묻고 답변을 받은 후에만 파이프라인을 가동합니다.
 - 추출 스크립트 실행 명령어 (UTF-8 강제 적용):
 ```bash
-python -X utf8 "c:/Users/ts.moon/OneDrive - LG전자/obsidian/.agent/scripts/autonomous_ppt_agent.py" "전달받은_PPT경로"
+python -X utf8 ".agent/scripts/autonomous_ppt_agent.py" "전달받은_PPT경로"
 ```
 - **🚨 절대 훅 (Hook)**: 스크립트 실행이 끝났다고 "완료되었습니다" 하고 넘어가면 안 됩니다. 에이전트는 반드시 결과 파일을 읽어들여 Omni-Agent 단계를 수행하여 최종 결과물을 사용자에게 보고해야 합니다.
