@@ -134,52 +134,8 @@ def parse_text(shape) -> str:
             
     return md_text + "\n" if md_text else ""
 
-# --- Autonomous LLM Refiner ---
-def autonomous_refine(md_text, api_key):
-    print("\n🤖 [Autonomous Agent] LLM Refinement(투트랙) 시작...")
-    try:
-        import google.generativeai as genai
-    except ImportError:
-        print("⚠️ google.generativeai 라이브러리가 없습니다. 추출된 Raw Markdown만 저장합니다.")
-        return md_text
-
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-pro-latest')
-    
-    prompt = """
-    당신은 PPT 원시 데이터를 정밀한 마크다운(표, Mermaid 차트, KPI 박스 등)으로 변환하는 Refiner 에이전트입니다.
-    아래 텍스트 중 `[도식 공간 분석]` 등의 원시 좌표 데이터나 파편화된 텍스트를 문맥에 맞게 표(Table)나 Mermaid Flowchart/Gantt 차트로 완벽하게 재구성하세요.
-    의미 있는 데이터의 손실 없이 시각적 가독성만 높이세요. 다른 원시 텍스트는 그대로 유지하세요.
-    
-    [원본 텍스트]
-    """
-    
-    # Chunking by Slide Title
-    slides = re.split(r"(^# \d+\. .*?\n)", md_text, flags=re.MULTILINE)
-    
-    refined_md = slides[0]
-    
-    for i in range(1, len(slides), 2):
-        slide_title_marker = slides[i]
-        slide_content = slides[i+1] if i+1 < len(slides) else ""
-        
-        # Only call LLM for slides that have raw diagram data to save time/tokens
-        if "[도식 공간 분석]" in slide_content:
-            print(f"🔄 다듬기 진행 중 (API 호출): {slide_title_marker.strip()}")
-            try:
-                response = model.generate_content(prompt + slide_content)
-                slide_content = response.text
-            except Exception as e:
-                print(f"⚠️ LLM API Error on {slide_title_marker.strip()}: {e}")
-        else:
-            print(f"✅ 통과 (LLM 불필요): {slide_title_marker.strip()}")
-            
-        refined_md += slide_title_marker + slide_content
-
-    return refined_md
-
 # --- Main Orchestrator ---
-def process_ppt(pptx_path, out_dir_path, autonomous=False, api_key=None):
+def process_ppt(pptx_path, out_dir_path):
     print("========================================")
     print(f"🚀 자율형 PPT 파싱 에이전트 시작")
     print(f"▶ 대상 파일: {pptx_path}")
@@ -227,10 +183,7 @@ def process_ppt(pptx_path, out_dir_path, autonomous=False, api_key=None):
 
     raw_markdown = "".join(output)
     
-    if autonomous and api_key:
-        final_markdown = autonomous_refine(raw_markdown, api_key)
-    else:
-        final_markdown = raw_markdown
+    final_markdown = raw_markdown
 
     md_out = str(Path(out_dir_path) / f"{file_name}.md")
     with open(md_out, "w", encoding="utf-8") as f:
@@ -245,8 +198,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Autonomous PPT Parser Agent")
     parser.add_argument("ppt_path", type=str, help="Path to the PPTX file")
     parser.add_argument("--out", type=str, default="c:/Users/ts.moon/OneDrive - LG전자/obsidian/암묵지 변환 결과", help="Output directory")
-    parser.add_argument("--autonomous", action="store_true", help="Enable LLM autonomous refinement")
-    parser.add_argument("--api-key", type=str, default=os.getenv("GEMINI_API_KEY"), help="Gemini API Key for autonomous mode")
     
     args = parser.parse_args()
-    process_ppt(args.ppt_path, args.out, autonomous=args.autonomous, api_key=args.api_key)
+    process_ppt(args.ppt_path, args.out)

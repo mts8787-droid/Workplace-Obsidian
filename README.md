@@ -37,10 +37,12 @@
 
 
 ## 2. 설치순서
-1. 파일을 다운 받아 Obsidian vault에 압축 풀기
-2. Antigravity 에서 Open Folder 에서 Onsidan Valut 열기
-3. 아래 텍스트를 복사해서 Antigravity에게 전송하세요.
-  " 내 옵시디언 최상위 폴더 하위의 `.agent` 폴더에 있는 마스터 허브 문서 `Antigravity_Agent.md`를 열고, 이 문서 안에 포함(@include)된 모든 skill, rule, hook 폴더의 하위 문서들까지 전부 스캔하고 향후 작업 시 KI에 숙지해 줘. `.agent/` 폴더 하위의 MD파일은 코어 시스템인 'Knowledge Item(KI)'에 영구적으로 등록해"
+1. 회사 시스템을 통해 배포된 `agent-d2c.zip` 파일을 다운로드하고 압축을 풉니다.
+2. 압축을 푼 폴더의 이름을 `.agent`로 변경합니다.
+3. 이름을 변경한 `.agent` 폴더를 본인의 옵시디언 볼트(Vault) 최상위(Root) 경로에 복사하여 넣습니다.
+4. Antigravity 에이전트에서 'Open Folder'를 통해 방금 적용한 옵시디언 볼트를 작업 공간으로 엽니다.
+5. 아래 텍스트를 복사해서 Antigravity 대화창에 전송하세요.
+  "내 옵시디언 최상위 폴더 하위의 `.agent` 폴더에 있는 마스터 허브 문서 `Antigravity_Agent.md`를 열고, 이 문서 안에 포함(@include)된 모든 skill, rule, hook 폴더의 하위 문서들까지 전부 스캔하고 향후 작업 시 KI에 숙지해 줘. `.agent/` 폴더 하위의 MD파일은 코어 시스템인 'Knowledge Item(KI)'에 영구적으로 등록해"
 
 
 ## 3. 공식 슬래시 명령어 (Slash Commands)
@@ -57,4 +59,9 @@
 - `/moc-set-ai` : 볼트 전체 분석 후 사용자 최적화 1-Depth 조니 데시멀 MOC 구조 재설계 및 제안
 - `/harness [내용]` : 에이전트에게 새로운 룰/스킬/훅을 생성해서 영구 등록하라고 지시
 
+## 4. Git Repo
+- https://github.com/mts8787-droid/Workplace-Obsidian
+
 Antigravity, Obsidian, MarkdownConverter
+
+
