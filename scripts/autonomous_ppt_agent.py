@@ -18,9 +18,9 @@ def capture_slides(pptx_path: Path, output_dir: Path):
         return False
     try:
         powerpoint = win32com.client.Dispatch("PowerPoint.Application")
-        presentation = powerpoint.Presentations.Open(str(pptx_path), WithWindow=False)
+        presentation = powerpoint.Presentations.Open(str(pptx_path.resolve()), WithWindow=False)
         output_dir.mkdir(parents=True, exist_ok=True)
-        presentation.Export(str(output_dir), "PNG")
+        presentation.Export(str(output_dir.resolve()), "PNG")
         presentation.Close()
         powerpoint.Quit()
         return True

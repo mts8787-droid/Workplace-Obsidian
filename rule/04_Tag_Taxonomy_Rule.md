@@ -172,6 +172,7 @@
 #program/npi           신제품 도입 (New Product Introduction)
 #program/clearance     재고 소진
 #program/trade-show    박람회(IFA·CES 등)
+#program/mamas         프로젝트 마마스 (MaMAS)
 ```
 
 ### 12) `#doc/` — 보고·문서 성격
@@ -182,6 +183,7 @@
 #doc/plan          계획·로드맵
 #doc/minutes       회의록
 #doc/proposal      품의·제안
+#doc/checklist     가이드·체크리스트 (Audit 기준)
 ```
 > 회의록은 `#type/meeting` + `#doc/minutes`로 단다. 보고 문서 성격이 중심이면 `#doc/`를 기준으로 검색한다.
 
@@ -207,6 +209,7 @@
 ### 15) `#topic/` — 핵심 키워드 사전 (기존 사전 통합)
 *특정 기능군, 마케팅 용어, 기술 키워드는 아래 `topic` 네임스페이스 산하로 관리한다.*
 ```text
+#topic/biz/kpi                 KPI, 핵심지표, 목표설정
 #topic/seo/geo                 GEO, 검색가시성 등
 #topic/seo/aeo                 AEO
 #topic/seo/tech                기술SEO
@@ -216,11 +219,19 @@
 #topic/brand/lg                LG전자, LG_COM
 #topic/brand/competitor        경쟁사 분석
 #topic/strategy/poc            PoC, 경쟁PT
-#topic/tech/llm                ChatGPT, Gemini 등 LLM 전반
+#topic/tech/llm                ChatGPT, Gemini, OpenAI, 생성형AI 등 LLM 전반
+#topic/tech/agent              Agentic AI, 에이전틱 MMM, 자가진화 모델
+#topic/tech/semantic-layer     시맨틱 레이어 (Semantic Layer)
+#topic/tech/gmc                GMC (Google Merchant Center, 피드관리)
+#topic/tech/mcc                MCC (Google Ads Manager Account)
+#topic/data/governance         데이터 거버넌스, 네이밍 컨벤션(NC), 미디어 거버넌스
+#topic/biz/contract            계약, 라이선스, 비용, 협상
 #topic/tech/akamai             Akamai, EdgeWorker, CDN
-#topic/tech/schema             Schema, VideoObject
+#topic/tech/schema             Schema, VideoObject, JSON-LD
 #topic/tech/rag                RAG
-#topic/tech/api                API
+#topic/tech/api                API, 인터페이스
+#topic/tech/cwv                Core Web Vitals (LCP, CLS, INP 등 웹성능)
+#topic/tech/a11y               웹 접근성 (Accessibility, ARIA 등)
 ```
 
 ---

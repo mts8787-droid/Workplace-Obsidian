@@ -1,0 +1,13 @@
+New-Item -ItemType Directory -Force -Path "10. 프로젝트 (Projects)\13. MAaMAS\131. 회의록"
+New-Item -ItemType Directory -Force -Path "10. 프로젝트 (Projects)\13. MAaMAS\132. 산출물"
+New-Item -ItemType Directory -Force -Path "30. 참고자료 (References)\31. 가이드"
+New-Item -ItemType Directory -Force -Path "30. 참고자료 (References)\32. 매체 제안서"
+New-Item -ItemType Directory -Force -Path "20. 산출물 (Outputs)\22. 비상시 보고"
+
+Move-Item -Force "00. Inbox\[회의록]프로젝트_마마스_도입조건_통화내용_260604.md" "10. 프로젝트 (Projects)\13. MAaMAS\131. 회의록"
+Move-Item -Force "00. Inbox\스윗_미국_미팅_정리.md" "10. 프로젝트 (Projects)\13. MAaMAS\131. 회의록"
+Move-Item -Force "00. Inbox\미국_스윗_PPT_수정본_작업.md" "10. 프로젝트 (Projects)\13. MAaMAS\132. 산출물"
+Move-Item -Force "00. Inbox\MMO_개발_운영_프로젝트_제안서_0527.md" "10. 프로젝트 (Projects)\13. MAaMAS\132. 산출물"
+Move-Item -Force "00. Inbox\디지털_마케팅_거버넌스_가이드_GMC_MCC_NC.md" "30. 참고자료 (References)\31. 가이드"
+Move-Item -Force "00. Inbox\[요약]크리테오_오픈AI_광고_패키지_제안_최종 수정안_260528.md" "30. 참고자료 (References)\32. 매체 제안서"
+Move-Item -Force "00. Inbox\챗지피티_크리테오_광고_집행_협의_필요사항.md" "20. 산출물 (Outputs)\22. 비상시 보고"
