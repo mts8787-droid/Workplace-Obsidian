@@ -1,10 +1,17 @@
-# Python
+# 1. 루트의 모든 파일과 폴더를 기본적으로 무시합니다.
+/*
+
+# 2. 예외 처리 (에이전트 통합 멀티 스킬 관련 파일만 추적 허용)
+!/.agent/
+!/README.md
+!/AGENTS.md
+!/.gitignore
+
+# 3. 추가적인 공통 무시 패턴 (캐시, 시스템 생성 파일)
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# OS generated files
 .DS_Store
 .DS_Store?
 ._*

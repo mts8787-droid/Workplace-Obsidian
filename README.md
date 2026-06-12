@@ -41,9 +41,9 @@
 
 ## 1. 폴더 구조
 📦내_옵시디언_폴더(Vault)
+ ┣ 📜AGENTS.md (마스터 허브)
+ ┣ 📜README.md (본 문서)
  ┣ 📂.agent
- ┃ ┣ 📜Antigravity_Agent.md (마스터 허브)
- ┃ ┣ 📜README.md (본 문서)
  ┃ ┣ 📂skill/
  ┃ ┣ 📂rule/
  ┃ ┗ 📂hook/
@@ -59,7 +59,7 @@
 3. 이름을 변경한 `.agent` 폴더를 본인의 옵시디언 볼트(Vault) 최상위(Root) 경로에 복사하여 넣습니다.
 4. Antigravity 에이전트에서 'Open Folder'를 통해 방금 적용한 옵시디언 볼트를 작업 공간으로 엽니다.
 5. 아래 텍스트를 복사해서 Antigravity 대화창에 전송하세요.
-  "내 옵시디언 최상위 폴더 하위의 `.agent` 폴더에 있는 마스터 허브 문서 `Antigravity_Agent.md`를 열고, 이 문서 안에 포함(@include)된 모든 skill, rule, hook 폴더의 하위 문서들까지 전부 스캔하고 향후 작업 시 KI에 숙지해 줘. `.agent/` 폴더 하위의 MD파일은 코어 시스템인 'Knowledge Item(KI)'에 영구적으로 등록해"
+  "내 옵시디언 최상위 폴더에 있는 마스터 허브 문서 `AGENTS.md`를 열고, 이 문서 안에 포함(@include)된 모든 skill, rule, hook 폴더의 하위 문서들까지 전부 스캔하고 향후 작업 시 KI에 숙지해 줘. `.agent/` 폴더 하위의 MD파일은 코어 시스템인 'Knowledge Item(KI)'에 영구적으로 등록해"
 
 
 ## 3. 공식 슬래시 명령어 (Slash Commands)

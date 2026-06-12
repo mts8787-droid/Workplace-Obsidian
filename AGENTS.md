@@ -1,7 +1,16 @@
-# 🤖 Antigravity AGENTS.md (Master Core)
+# 🤖 AGENTS.md (Master Core)
 **Precedence: 1 (최우선 마스터 허브)**
 
 > 이 문서는 사용자의 옵시디언(Obsidian) 볼트를 효율적으로 관리하기 위한 AI 에이전트 전용 **'통제 허브(Hub)'**입니다.
+> This file governs the vault root and all descendants unless a closer `AGENTS.md` overrides it.
+
+## 0. Repository Instructions
+When working in this repository:
+- Treat this `AGENTS.md` as the master index for all repo-specific `ki`, skill, subagent, rule, and hook documents.
+- Apply every skill, rule, and hook under `.agent/skill/`, `.agent/rule/`, and `.agent/hook/` that matches the task, file state, or workflow.
+- Use the matching `ki/` or `subagent/` document when the task touches the corresponding workflow.
+- Treat hooks as hard constraints.
+- Keep the Obsidian vault structure, metadata, and note integrity intact unless the user explicitly asks for a change.
 
 ---
 
@@ -49,7 +58,6 @@
 
 ### 🚫 HOOKS (절대 금지 사항 - Precedence 0)
 - `@include hook/01_Data_Integrity_Hook.md` (태그 삭제 금지, 문법 파괴 금지, 파편화 금지, .agent 이동 금지)
-- `@include hook/02_D2C_Sync_Hook.md` (.agent 수정 시 즉시 .agent -D2C로 사본 동기화 및 01번 룰 덮어쓰기 절대 금지)
 - `@include hook/03_PPT_Parsing_Hook.md` (PPT 파싱 시 2개 문서 제한 및 불완전 종료 절대 금지)
 
 ---
@@ -69,4 +77,3 @@
 - `/rollup` : `05_Daily_Rollup_Skill` 발동 (생성된 문서와 태스크 모아 데일리 요약)
 - `/hotkey` : `09_All_in_One_Classification_Skill` 발동 (태깅, 제목 변경, 링크, 분류 일괄 적용)
 - `/harness [내용]` : 새로운 규칙을 하네스 관점(Skill/Rule/Hook)으로 파악해 `.agent`에 MD로 저장
-
