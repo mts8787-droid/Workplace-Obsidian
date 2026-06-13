@@ -11,6 +11,8 @@ When working in this repository:
 - Use the matching `ki/` or `subagent/` document when the task touches the corresponding workflow.
 - Treat hooks as hard constraints.
 - Keep the Obsidian vault structure, metadata, and note integrity intact unless the user explicitly asks for a change.
+- Keep this file at the harness level: command-specific procedures, exceptions, and execution details belong in the relevant skill, rule, or hook document.
+- When editing harness documents, classify the target layer first and keep the change inside that layer; split cross-layer content into separate files instead of blending it here.
 
 ---
 
@@ -31,12 +33,13 @@ When working in this repository:
 
 ### 🛠️ SKILLS (에이전트 행동 엔진)
 - `@include skill/01_Directory_Routing_Skill.md` (폴더 자동 라우팅 및 쟈니 데시멀 정밀 분류)
-- `@include skill/02_Metadata_Tagging_Skill.md` (메타데이터 및 태그 자동 매핑)
+- `@include skill/02_Metadata_Tagging_Skill.md` (메타데이터 및 태그 자동 매핑, `/taggging`)
 - `@include skill/04_Orphan_Linker_Skill.md` (고립된 고아 문서 문맥 연결)
 - `@include skill/05_Daily_Rollup_Skill.md` (일일/주간 작업 요약 리포트 작성)
 - `@include skill/06_Title_Change_Skill.md` (description 기반 파일명 및 타이틀 자동 변경)
-- `@include skill/07_MD_HTML_Convert_Skill.md` (HTML 원시 파일 마크다운 정제 및 자동 태깅)
-- `@include skill/08_MD_PPT_Convert_Skill.md` (PPT/Excel 원시 파일의 정밀 마크다운 변환 및 통합 파싱)
+- `@include skill/07_MD_HTML_Convert_Skill.md` (HTML 원시 파일 마크다운 정제 및 자동 태깅, `/md-html`)
+- `@include skill/08_MD_PPT_Convert_Skill.md` (PPT/Excel 원시 파일의 정밀 마크다운 변환 및 통합 파싱, `/md-ppt`)
+- `@include skill/12_MD_Dispatch_Skill.md` (선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt`를 자동 호출하는 `/md` 디스패처)
 - `@include skill/09_All_in_One_Classification_Skill.md` (올인원 태깅/분류/라우팅 일괄 처리)
 
 ### 🤖 SUBAGENTS (서브에이전트 페르소나 및 롤 정의)
@@ -59,19 +62,18 @@ When working in this repository:
 ### 🚫 HOOKS (절대 금지 사항 - Precedence 0)
 - `@include hook/01_Data_Integrity_Hook.md` (태그 삭제 금지, 문법 파괴 금지, 파편화 금지, .agent 이동 금지)
 - `@include hook/03_PPT_Parsing_Hook.md` (PPT 파싱 시 2개 문서 제한 및 불완전 종료 절대 금지)
+- `@include hook/06_Harness_Layer_Fence_Hook.md` (하네스 레이어 경계 강제, Hub/Skill/Rule/Hook 분리)
 
 ---
 
 ## 2. 공식 슬래시 명령어 (Slash Commands)
 사용자는 에이전트에게 아래의 슬래시 명령어를 입력하여 빠르고 정확하게 자동화 스킬을 가동하거나 진화시킬 수 있습니다.
-💡 **경로 지정 필수 규칙 (Path Requirement)**: 바이너리 파일(PPT 등)의 활성화 인식 오류를 방지하기 위해, 모든 스킬 명령어 뒤에는 반드시 타겟 **파일명 또는 폴더 경로**를 입력해야 합니다. (예: `/MD-PPT FFFFFFFFFFF.pptx` 또는 `/tagging --folder "C:\경로"`)
-만약 경로를 생략하고 명령어만 입력할 경우, 에이전트는 즉시 가동을 멈추고 사용자에게 **"타겟 파일명이나 경로를 지정해 주세요"**라고 되물어야 합니다.
-
-- `/skill` : 현재 에이전트가 가동할 수 있는 모든 스킬(명령어) 리스트와 간단한 설명을 출력
+- `/skill-list` : 현재 에이전트가 가동할 수 있는 모든 스킬(명령어) 리스트와 간단한 설명을 출력
 - `/route` : `01_Directory_Routing_Skill` 발동 (Inbox 문서의 1 Depth 분류 및 2~3 Depth 쟈니 데시멀 정밀 타겟팅 이동)
-- `/tagging` : `02_Metadata_Tagging_Skill` 발동 (메타데이터 할당 및 200자 description 자동 생성)
-- `/md` : `07_Markdown_Convert_Skill` 발동 (HTML 코드 텍스트 추출 후 마크다운 정제 + 자동 태깅)
-- `/MD-PPT` : `08_MD_PPT_Convert_Skill` 발동 (PPT 문서의 10대 핵심 파싱, 전수 파싱, 표 병합 복원 및 Mermaid 변환 적용)
+- `/taggging` : `02_Metadata_Tagging_Skill` 발동 (메타데이터 할당 및 200자 description 자동 생성)
+- `/md` : 선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt`를 자동 호출하는 디스패처
+- `/md-html` : `07_MD_HTML_Convert_Skill` 발동 (HTML 코드 텍스트 추출 후 마크다운 정제 + 자동 태깅)
+- `/md-ppt` : `08_MD_PPT_Convert_Skill` 발동
 - `/title` : `06_Title_Change_Skill` 발동 (description 기반으로 알맞은 타이틀/파일명 변경)
 - `/link` : `04_Orphan_Linker_Skill` 발동 (고립된 고아 문서를 찾아 문맥 연결)
 - `/rollup` : `05_Daily_Rollup_Skill` 발동 (생성된 문서와 태스크 모아 데일리 요약)
