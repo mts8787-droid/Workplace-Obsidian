@@ -2,6 +2,7 @@
 > **사용 팁**: 이 스킬 묶음은 Antigravity와 Codex를 함께 쓰는 통합 버전입니다. VS Code에서 열어 쓰면 더 편하게 다룰 수 있습니다.
 
 ## Version 1.3 Release Notes
+- **핵심 업데이트**: 단일 에이전트를 넘어 **Antigravity와 Codex를 함께 사용하는 통합 버전**으로 시스템을 확장 및 재설계했습니다. (옴니 에이전트 아키텍처 전환)
 - `AGENTS.md`의 공식 명령어 목록을 정리하고 `/skill-list`를 표준 진입점으로 맞췄습니다.
 - `/md`를 디스패처로 재설계해 파일 형식에 따라 `/md-html` 또는 `/md-ppt-text`를 자동 호출하도록 바꿨습니다.
 - HTML 변환 스킬은 `/md-html`로 분리했습니다.
