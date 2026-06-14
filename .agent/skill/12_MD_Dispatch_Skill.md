@@ -1,6 +1,6 @@
 ---
 title: "12_MD_Dispatch_Skill"
-description: "선택된 파일 형식에 따라 /md-html 또는 /md-ppt를 자동 호출하는 변환 디스패처"
+description: "선택된 파일 형식에 따라 /md-html, /md-ppt-text 또는 /md-xlsx를 자동 호출하는 변환 디스패처"
 category: "skill"
 tags:
   - md
@@ -22,12 +22,15 @@ tags:
 
 ## 3. 자동 선택 규칙
 - HTML, HTM, MHT, 이메일 원시본, 웹 클리핑 계열이면 `/md-html`을 호출한다.
-- PPT, PPTX, XLSX, 슬라이드 추출 문서 계열이면 `/md-ppt`를 호출한다.
+- PPT, PPTX, 슬라이드 추출 문서 계열이면 토큰 절약을 위해 기본적으로 `/md-ppt-text`를 호출한다. (단, 사용자가 이미지 기반 렌더링을 원하면 `/md-ppt-render`를 호출)
+- Excel 파일(XLSX, CSV, XLS) 계열이면 시트별 정제 및 구조화를 위해 `/md-xlsx`를 호출한다.
 - 형식이 혼재하거나 판별이 불가능하면 사용자에게 다시 확인한다.
 
 ## 4. 참조 문서 (Rules & Hooks)
 - `@include skill/07_MD_HTML_Convert_Skill.md`
 - `@include skill/08_MD_PPT_Convert_Skill.md`
+- `@include skill/13_MD_PPT_Text_Convert_Skill.md`
+- `@include skill/14_MD_Excel_Convert_Skill.md`
 - `@include rule/09_HTML_Parsing_Rule.md`
 - `@include rule/08_PPT_Parsing_Rule.md`
 - `@include hook/03_PPT_Parsing_Hook.md`
@@ -36,9 +39,10 @@ tags:
 ## 5. 워크플로우
 1. 대상 파일 또는 폴더를 확인한다.
 2. 확장자와 소스 유형을 판별한다.
-3. HTML 계열이면 `/md-html`을, PPT 계열이면 `/md-ppt`를 호출한다.
+3. HTML 계열이면 `/md-html`을, PPT 계열이면 `/md-ppt-text`를, Excel 계열이면 `/md-xlsx`를 자동 호출한다.
 4. 대상이 명확하지 않으면 사용자에게 형식을 다시 묻는다.
-5. 호출된 하위 스킬의 결과를 그대로 이어받아 반환한다.
+5. 호출된 하위 스킬의 결과물(`.md`)은 `00. Inbox` (수집함) 폴더에 최종 저장(또는 이동)한다.
+6. 이어서 해당 결과물에 대해 `/taggging` 스킬과 `/title` 스킬을 순차적으로 자동 실행하여 문서 정규화를 완료한다.
 
 ## 6. 완료 기준
 - 사용자가 `/md` 하나만 입력해도 파일 형식에 맞는 변환 경로가 자동으로 선택된다.

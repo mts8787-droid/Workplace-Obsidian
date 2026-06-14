@@ -5,6 +5,11 @@ from pathlib import Path
 from pptx import Presentation
 from pptx.enum.shapes import MSO_SHAPE_TYPE
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # --- Visual Fallback ---
 try:
     import win32com.client
@@ -135,7 +140,7 @@ def parse_text(shape) -> str:
     return md_text + "\n" if md_text else ""
 
 # --- Main Orchestrator ---
-def process_ppt(pptx_path, out_dir_path):
+def process_ppt(pptx_path, out_dir_path, no_image=False):
     print("========================================")
     print(f"🚀 자율형 PPT 파싱 에이전트 시작")
     print(f"▶ 대상 파일: {pptx_path}")
@@ -151,7 +156,8 @@ def process_ppt(pptx_path, out_dir_path):
     ]
     
     out_dir = Path(out_dir_path) / f"assets/{file_name}"
-    capture_slides(Path(pptx_path), out_dir)
+    if not no_image:
+        capture_slides(Path(pptx_path), out_dir)
     
     prs = Presentation(pptx_path)
     
@@ -163,7 +169,8 @@ def process_ppt(pptx_path, out_dir_path):
             title = f"Slide {slide_idx + 1}"
             
         output.append(f"# {slide_idx + 1}. {title}\n\n")
-        output.append(f"![Slide {slide_idx + 1} Image](assets/{file_name}/슬라이드{slide_idx + 1}.PNG)\n\n")
+        if not no_image:
+            output.append(f"![Slide {slide_idx + 1} Image](assets/{file_name}/슬라이드{slide_idx + 1}.PNG)\n\n")
         
         for shape in slide.shapes:
             if hasattr(shape, "has_table") and shape.has_table:
@@ -198,6 +205,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Autonomous PPT Parser Agent")
     parser.add_argument("ppt_path", type=str, help="Path to the PPTX file")
     parser.add_argument("--out", type=str, default="c:/Users/ts.moon/OneDrive - LG전자/obsidian/암묵지 변환 결과", help="Output directory")
+    parser.add_argument("--no-image", action="store_true", help="Skip image capture and rendering")
     
     args = parser.parse_args()
-    process_ppt(args.ppt_path, args.out)
+    process_ppt(args.ppt_path, args.out, args.no_image)

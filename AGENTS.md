@@ -38,8 +38,10 @@ When working in this repository:
 - `@include skill/05_Daily_Rollup_Skill.md` (일일/주간 작업 요약 리포트 작성)
 - `@include skill/06_Title_Change_Skill.md` (description 기반 파일명 및 타이틀 자동 변경)
 - `@include skill/07_MD_HTML_Convert_Skill.md` (HTML 원시 파일 마크다운 정제 및 자동 태깅, `/md-html`)
-- `@include skill/08_MD_PPT_Convert_Skill.md` (PPT/Excel 원시 파일의 정밀 마크다운 변환 및 통합 파싱, `/md-ppt`)
-- `@include skill/12_MD_Dispatch_Skill.md` (선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt`를 자동 호출하는 `/md` 디스패처)
+- `@include skill/08_MD_PPT_Convert_Skill.md` (PPT 이미지/렌더링 포함 정밀 구조화, `/md-ppt-render`)
+- `@include skill/13_MD_PPT_Text_Convert_Skill.md` (PPT 텍스트 기반 도식화 및 정제, 이미지 생략, `/md-ppt-text`)
+- `@include skill/14_MD_Excel_Convert_Skill.md` (Excel 병합 셀 정제 및 시트 분리 구조화, `/md-xlsx`)
+- `@include skill/12_MD_Dispatch_Skill.md` (선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt-text`를 자동 호출하는 `/md` 디스패처)
 - `@include skill/09_All_in_One_Classification_Skill.md` (올인원 태깅/분류/라우팅 일괄 처리)
 
 ### 🤖 SUBAGENTS (서브에이전트 페르소나 및 롤 정의)
@@ -53,16 +55,18 @@ When working in this repository:
 - `@include rule/01_Directory_Structure_Rule.md` (폴더 분류 체계)
 - `@include rule/02_Frontmatter_Standard_Rule.md` (15개 필수 속성 및 YAML 문법)
 - `@include rule/03_Tag_Creation_Rule.md` (보수적 태그 생성 원칙)
-- `@include rule/04_Tag_Vocabulary_Rule.md` (허용된 기본 단어장 및 속성 사전)
+- `@include rule/04_Tag_Taxonomy_Rule.md` (15개 네임스페이스 기반 태그 택소노미 및 허용 사전)
 - `@include rule/06_Obsidian_Syntax_Rule.md` (옵시디언 특화 렌더링 및 참조 문법 규칙)
 - `@include rule/07_Johnny_Decimal_Rule.md` (쟈니 데시멀 넘버링 정밀 규칙)
 - `@include rule/08_PPT_Parsing_Rule.md` (PPT 타이포그래피, 다이어그램 등 정밀 변환 룰)
 - `@include rule/09_HTML_Parsing_Rule.md` (HTML 태그 제거 및 마크다운 치환 정규화 룰)
+- `@include rule/10_Mermaid_Rendering_Rule.md` (Obsidian Mermaid 렌더링 오류 방지 및 QC 룰)
 
 ### 🚫 HOOKS (절대 금지 사항 - Precedence 0)
 - `@include hook/01_Data_Integrity_Hook.md` (태그 삭제 금지, 문법 파괴 금지, 파편화 금지, .agent 이동 금지)
 - `@include hook/03_PPT_Parsing_Hook.md` (PPT 파싱 시 2개 문서 제한 및 불완전 종료 절대 금지)
 - `@include hook/06_Harness_Layer_Fence_Hook.md` (하네스 레이어 경계 강제, Hub/Skill/Rule/Hook 분리)
+- `@include hook/07_MD_Extraction_Routing_Hook.md` (모든 /md 변환 결과물을 00. Inbox로 강제 라우팅)
 
 ---
 
@@ -71,9 +75,11 @@ When working in this repository:
 - `/skill-list` : 현재 에이전트가 가동할 수 있는 모든 스킬(명령어) 리스트와 간단한 설명을 출력
 - `/route` : `01_Directory_Routing_Skill` 발동 (Inbox 문서의 1 Depth 분류 및 2~3 Depth 쟈니 데시멀 정밀 타겟팅 이동)
 - `/taggging` : `02_Metadata_Tagging_Skill` 발동 (메타데이터 할당 및 200자 description 자동 생성)
-- `/md` : 선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt`를 자동 호출하는 디스패처
+- `/md` : 선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt-text`를 자동 호출하는 디스패처
 - `/md-html` : `07_MD_HTML_Convert_Skill` 발동 (HTML 코드 텍스트 추출 후 마크다운 정제 + 자동 태깅)
-- `/md-ppt` : `08_MD_PPT_Convert_Skill` 발동
+- `/md-ppt-render` : `08_MD_PPT_Convert_Skill` 발동 (이미지 파싱 포함 정밀 구조화)
+- `/md-ppt-text` : `13_MD_PPT_Text_Convert_Skill` 발동 (이미지 파싱 생략, 텍스트 기반 다이어그램 도식화)
+- `/md-xlsx` : `14_MD_Excel_Convert_Skill` 발동 (Excel 시트별 표 및 타임라인 정제 구조화)
 - `/title` : `06_Title_Change_Skill` 발동 (description 기반으로 알맞은 타이틀/파일명 변경)
 - `/link` : `04_Orphan_Linker_Skill` 발동 (고립된 고아 문서를 찾아 문맥 연결)
 - `/rollup` : `05_Daily_Rollup_Skill` 발동 (생성된 문서와 태스크 모아 데일리 요약)
