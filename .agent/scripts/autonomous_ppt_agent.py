@@ -18,19 +18,42 @@ except ImportError:
 
 def capture_slides(pptx_path: Path, output_dir: Path):
     print("📸 스크린 변환 캡쳐 진행 중...")
+    
+    # Try PDF Fallback First (if a PDF with the same name exists)
+    pdf_path = pptx_path.with_suffix('.pdf')
+    if pdf_path.exists():
+        print(f"📄 동일한 이름의 PDF 파일을 발견했습니다. PyMuPDF(fitz)를 사용하여 안전하게 고품질 이미지를 추출합니다.")
+        try:
+            import fitz
+            doc = fitz.open(str(pdf_path))
+            output_dir.mkdir(parents=True, exist_ok=True)
+            for page_idx in range(len(doc)):
+                page = doc.load_page(page_idx)
+                pix = page.get_pixmap(dpi=150)
+                pix.save(str(output_dir / f"슬라이드{page_idx + 1}.PNG"))
+            print("✅ PDF 기반 이미지 추출 성공!")
+            return True
+        except Exception as e:
+            print(f"⚠️ PDF 기반 추출 실패: {e}")
+
+    # win32com Fallback
     if 'win32com' not in sys.modules:
         print("⚠️ win32com 모듈이 없어 캡쳐를 건너뜁니다.")
         return False
     try:
-        powerpoint = win32com.client.Dispatch("PowerPoint.Application")
-        presentation = powerpoint.Presentations.Open(str(pptx_path.resolve()), WithWindow=False)
+        powerpoint = win32com.client.DispatchEx("PowerPoint.Application")
+        powerpoint.DisplayAlerts = 1
+        presentation = powerpoint.Presentations.Open(str(pptx_path.resolve()), ReadOnly=True, Untitled=False, WithWindow=False)
         output_dir.mkdir(parents=True, exist_ok=True)
         presentation.Export(str(output_dir.resolve()), "PNG")
         presentation.Close()
         powerpoint.Quit()
+        print("✅ COM 기반 이미지 추출 성공!")
         return True
     except Exception as e:
         print(f"⚠️ 캡쳐 실패: {e}")
+        try: powerpoint.Quit()
+        except: pass
         return False
 
 # --- Parsers ---
@@ -172,7 +195,20 @@ def process_ppt(pptx_path, out_dir_path, no_image=False):
         if not no_image:
             output.append(f"![Slide {slide_idx + 1} Image](assets/{file_name}/슬라이드{slide_idx + 1}.PNG)\n\n")
         
+        # 휴리스틱 좌표 정렬: Y좌표(Top) 허용 오차 내에서 X좌표(Left) 우선 정렬
+        sortable_shapes = []
         for shape in slide.shapes:
+            try:
+                top = getattr(shape, "top", 0)
+                left = getattr(shape, "left", 0)
+                # Group by Y within ~500,000 EMU to keep rows together
+                sortable_shapes.append(((top // 500000), left, shape))
+            except:
+                sortable_shapes.append((0, 0, shape))
+                
+        sortable_shapes.sort(key=lambda x: (x[0], x[1]))
+        
+        for _, _, shape in sortable_shapes:
             if hasattr(shape, "has_table") and shape.has_table:
                 output.append(parse_table(shape))
             elif hasattr(shape, "has_chart") and shape.has_chart:

@@ -41,6 +41,7 @@ When working in this repository:
 - `@include skill/08_MD_PPT_Convert_Skill.md` (PPT 이미지/렌더링 포함 정밀 구조화, `/md-ppt-render`)
 - `@include skill/13_MD_PPT_Text_Convert_Skill.md` (PPT 텍스트 기반 도식화 및 정제, 이미지 생략, `/md-ppt-text`)
 - `@include skill/14_MD_Excel_Convert_Skill.md` (Excel 병합 셀 정제 및 시트 분리 구조화, `/md-xlsx`)
+- `@include skill/15_MD_PDF_Convert_Skill.md` (PDF 텍스트 추출 및 페이지 노이즈 제거, `/md-pdf`)
 - `@include skill/12_MD_Dispatch_Skill.md` (선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt-text`를 자동 호출하는 `/md` 디스패처)
 - `@include skill/09_All_in_One_Classification_Skill.md` (올인원 태깅/분류/라우팅 일괄 처리)
 
@@ -80,6 +81,7 @@ When working in this repository:
 - `/md-ppt-render` : `08_MD_PPT_Convert_Skill` 발동 (이미지 파싱 포함 정밀 구조화)
 - `/md-ppt-text` : `13_MD_PPT_Text_Convert_Skill` 발동 (이미지 파싱 생략, 텍스트 기반 다이어그램 도식화)
 - `/md-xlsx` : `14_MD_Excel_Convert_Skill` 발동 (Excel 시트별 표 및 타임라인 정제 구조화)
+- `/md-pdf` : `15_MD_PDF_Convert_Skill` 발동 (PDF 페이지 분할 병합 및 노이즈 제거 정제)
 - `/title` : `06_Title_Change_Skill` 발동 (description 기반으로 알맞은 타이틀/파일명 변경)
 - `/link` : `04_Orphan_Linker_Skill` 발동 (고립된 고아 문서를 찾아 문맥 연결)
 - `/rollup` : `05_Daily_Rollup_Skill` 발동 (생성된 문서와 태스크 모아 데일리 요약)

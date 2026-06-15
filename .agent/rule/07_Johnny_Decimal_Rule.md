@@ -25,7 +25,7 @@
 
 20. 산출물 (Outputs)/
 ├── 21. 정기보고/
-├── 22. 비상시 보고/
+├── 22. 비정기보고/
 └── 23. 전략회의/
 
 ---
@@ -36,15 +36,14 @@
 30. 참고자료 (References)/
 ├── 31. 가이드/
 ├── 32. 외부공지/
-자산
+├── 34. Docs/                       # 분류 대기 중인 외부문서, inbox는 내가 생산한 문서
+├── 35. Assets/                     # 공통 미디어 자산
+├── 36. Collections/
+├── 37. Outputs/                    # (Legacy)
+└── 38. References/                 # (Legacy)
 
 ---
 
 ## 📂 기타 운영 폴더 (Others)
-40. Docs/                       # 분류 대기 중인 외부문서, inbox는 내가 생산한 문서
-50. Assets/                     # 공통 미디어 자산
-60. Collections/
-70. Outputs/                    # (Legacy)
-80. References/                 # (Legacy)
 90. Settings/                   # 옵시디언 플러그인, 템플릿, 테마 설정
 90. 기타 (Others)/
