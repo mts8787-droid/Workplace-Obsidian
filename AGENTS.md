@@ -27,7 +27,7 @@ When working in this repository:
 
 ### 🧠 KI (내부 두뇌 영구 등록용 지침)
 에이전트가 작업 전 반드시 숙지해야 할 최상위 행동 강령 및 메타 규칙입니다.
-- `@include ki/KI_코어_시스템_지침.md` (하네스 시스템 및 폴더 보호 메타 원칙)
+- `@include ki/KI_등록용_시스템_지침.md` (하네스 시스템 및 폴더 보호 메타 원칙)
 - `@include ki/KI_Karpathy_Guidelines.md` (안드레 카파시 행동 지침)
 - `@include ki/KI_Harness_Engineering.md` (하네스 진화 및 점진적 학습 관리 원칙)
 
@@ -44,6 +44,8 @@ When working in this repository:
 - `@include skill/15_MD_PDF_Convert_Skill.md` (PDF 텍스트 추출 및 페이지 노이즈 제거, `/md-pdf`)
 - `@include skill/12_MD_Dispatch_Skill.md` (선택된 파일 형식에 따라 `/md-html` 또는 `/md-ppt-text`를 자동 호출하는 `/md` 디스패처)
 - `@include skill/09_All_in_One_Classification_Skill.md` (올인원 태깅/분류/라우팅 일괄 처리)
+- `@include skill/10_MOC_Set_User_Skill.md` (사용자 지정 MOC 기반 폴더 재분배, `/moc-set-user`)
+- `@include skill/11_MOC_Set_AI_Skill.md` (AI 주도 MOC 및 조니 데시멀 설계, `/moc-set-ai`)
 
 ### 🤖 SUBAGENTS (서브에이전트 페르소나 및 롤 정의)
 특정 스킬(특히 파싱/정제)을 수행하기 위해 메인 에이전트와 역할을 분담하는 전담 서브에이전트들의 페르소나와 워크플로우 정의입니다.
@@ -65,7 +67,9 @@ When working in this repository:
 
 ### 🚫 HOOKS (절대 금지 사항 - Precedence 0)
 - `@include hook/01_Data_Integrity_Hook.md` (태그 삭제 금지, 문법 파괴 금지, 파편화 금지, .agent 이동 금지)
+- `@include hook/02_D2C_Sync_Hook.md` (.agent 변경 시 D2C 사본 동기화 강제)
 - `@include hook/03_PPT_Parsing_Hook.md` (PPT 파싱 시 2개 문서 제한 및 불완전 종료 절대 금지)
+- `@include hook/05_Tag_Sync_Hook.md` (태그 스킬, 생성 룰, 택소노미 룰 상호 동기화 강제)
 - `@include hook/06_Harness_Layer_Fence_Hook.md` (하네스 레이어 경계 강제, Hub/Skill/Rule/Hook 분리)
 - `@include hook/07_MD_Extraction_Routing_Hook.md` (모든 /md 변환 결과물을 00. Inbox로 강제 라우팅)
 
@@ -86,4 +90,6 @@ When working in this repository:
 - `/link` : `04_Orphan_Linker_Skill` 발동 (고립된 고아 문서를 찾아 문맥 연결)
 - `/rollup` : `05_Daily_Rollup_Skill` 발동 (생성된 문서와 태스크 모아 데일리 요약)
 - `/hotkey` : `09_All_in_One_Classification_Skill` 발동 (태깅, 제목 변경, 링크, 분류 일괄 적용)
+- `/moc-set-user` : `10_MOC_Set_User_Skill` 발동 (사용자 지정 MOC 기반 폴더 재분배)
+- `/moc-set-ai` : `11_MOC_Set_AI_Skill` 발동 (AI 주도 MOC 및 조니 데시멀 설계)
 - `/harness [내용]` : 새로운 규칙을 하네스 관점(Skill/Rule/Hook)으로 파악해 `.agent`에 MD로 저장

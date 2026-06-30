@@ -19,7 +19,7 @@ tags:
 
 ## 3. 참조 문서 (Rules & Hooks)
 - `@include rule/07_Johnny_Decimal_Rule.md`: 이 문서가 재설계 및 업데이트 타겟이 됩니다.
-- `@include hook/01_Destructive_Action_Hook.md`: 구조적 룰 변경 사항이므로 최종 적용 전 사용자 승인이 필요합니다.
+- `@include hook/01_Data_Integrity_Hook.md`: 구조적 룰 변경 사항과 파괴적 이동을 차단하기 위한 무결성 보호 규칙을 따릅니다.
 
 ## 4. 🤖 워크플로우 (Workflow)
 1. **메타데이터 및 네트워크 스캔**:

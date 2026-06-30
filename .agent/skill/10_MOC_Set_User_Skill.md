@@ -22,7 +22,7 @@ tags:
 
 ## 3. 참조 문서 (Rules & Hooks)
 - `@include rule/07_Johnny_Decimal_Rule.md`: 1 Depth 유지 및 하위 폴더 배치의 절대 기준.
-- `@include hook/01_Destructive_Action_Hook.md`: 기존 폴더 구조 변경 전 백업 및 확인 절차 의무.
+- `@include hook/01_Data_Integrity_Hook.md`: 기존 폴더 구조 변경 전 무결성 보호 및 차단 규칙 준수.
 
 ## 4. 🤖 워크플로우 (Workflow)
 1. **기존 디렉토리 스캔**:
